@@ -1,0 +1,14 @@
+<shortcut-def>
+	
+	<shortcuts>
+		<shortcut id="jpstaticresourceeditor.edit.shortCut" requiredPermission="superuser" menusection="plugins" source="jpstaticresourceeditor">
+			<description key="jpstaticresourceeditor.shortCut.list.shortDesc" />
+			<longdesc key="jpstaticresourceeditor.shortCut.list.longDesc" />
+			<url>
+				<param name="namespace">/do/jpstaticresourceeditor/Resourceeditor</param>
+				<param name="actionName">entry</param>
+			</url>
+		</shortcut>
+	</shortcuts>
+	
+</shortcut-def>
