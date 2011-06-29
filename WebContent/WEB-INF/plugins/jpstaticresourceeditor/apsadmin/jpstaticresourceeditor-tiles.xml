@@ -6,22 +6,23 @@
 <tiles-definitions>
     <definition extends="main.layout" name="admin.jpstaticresourceeditor.resourceeditor.intro">
 		<put-attribute name="title" value="title.jpstaticresourceeditor" />
+		<put-attribute name="extraResources" value="/WEB-INF/plugins/jpstaticresourceeditor/apsadmin/jsp/common/template/extraresources/intro-extras.jsp" />
 		<put-attribute name="body" value="/WEB-INF/plugins/jpstaticresourceeditor/apsadmin/jsp/intro.jsp" />
 	</definition>
 
     <definition extends="main.layout" name="admin.jpstaticresourceeditor.resourceeditor.list">
-		<put-attribute name="title" value="title.jpstaticresourceeditor" />
+		<put-attribute name="title" value="title.jpstaticresourceeditor.list" />
 		<put-attribute name="body" value="/WEB-INF/plugins/jpstaticresourceeditor/apsadmin/jsp/list.jsp" />
 	</definition>
 	
 	<definition extends="main.layout" name="admin.jpstaticresourceeditor.resourceeditor.edit">
-		<put-attribute name="title" value="title.jpstaticresourceeditor" />
+		<put-attribute name="title" value="title.jpstaticresourceeditor.edit" />
 		<put-attribute name="extraResources" value="/WEB-INF/plugins/jpstaticresourceeditor/apsadmin/jsp/common/template/extraresources/jpstaticresourceeditor-resourceeditor-extras.jsp" />
 		<put-attribute name="body" value="/WEB-INF/plugins/jpstaticresourceeditor/apsadmin/jsp/edit.jsp" />
 	</definition>
 
 	<definition extends="main.layout" name="admin.jpstaticresourceeditor.resourceeditor.createNew">
-		<put-attribute name="title" value="title.jpstaticresourceeditor" />
+		<put-attribute name="title" value="title.jpstaticresourceeditor.new" />
 		<put-attribute name="body" value="/WEB-INF/plugins/jpstaticresourceeditor/apsadmin/jsp/new.jsp" />
 	</definition>
 </tiles-definitions>

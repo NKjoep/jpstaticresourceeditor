@@ -1,15 +1,17 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <s:set var="targetNS" value="%{'/do/jpstaticresourceeditor/Resourceeditor'}" />
-<h1>jpstaticresourceeditor<s:include value="/WEB-INF/apsadmin/jsp/common/inc/operations-context-general.jsp" /></h1>
+<h1>
+<s:text name="jpstaticresourceeditor.name" />
+<s:include value="/WEB-INF/apsadmin/jsp/common/inc/operations-context-general.jsp" /></h1>
 
 <div id="main">
-	<p>
-		This is intro.jsp of jpstaticresourceeditor.
-	</p>
-	
-	<p>
-	<a href="<s:url action="list" />">go</a>
-	</p>
-
+	<div class="intro jpstaticresourceeditor">	
+		<p>
+			<s:text name="jpstaticresourceeditor.intro.info1" />	
+		</p>
+		<p>
+			<s:text name="jpstaticresourceeditor.intro.info2" />	
+		</p>
+	</div>
 </div>
 

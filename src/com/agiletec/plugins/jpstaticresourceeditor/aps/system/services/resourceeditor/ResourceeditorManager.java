@@ -97,7 +97,6 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 	}
 	
 	
-	/*************************/
 	// Process all files and directories under dir
 	public ArrayList<String> searchCssInDirectory(String cssPath) {
 		File f = new File(cssPath);
@@ -106,7 +105,7 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 		visitAllDirsAndFiles(f, list);
 		for(int i = 0;i<list.size();i++) {
 			String current = list.get(i);
-			System.out.println("in list: "+current);
+			//System.out.println("in list: "+current);
 		}
 		return list;
 	}

@@ -63,7 +63,7 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 	
 	public String edit () {
 		String filePath = this.getRootFolder()+this.getFileToEdit();
-		System.out.println(new Date().getTime() + " editing: "+filePath);
+		//System.out.println(new Date().getTime() + " editing: "+filePath);
 		String cssContent = this.getJpstaticResourceeditorManager().readCss(filePath);
 		if (cssContent!=null && cssContent.trim().length()>0) {
 			this.setFileContent(cssContent);
@@ -119,7 +119,6 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 			smallPath = path;
 			path = this.getRootFolder()+path;
 		}
-		System.out.println("\n\nrichiesto: "+smallPath+" -\nservito  : "+path);
 		ArrayList<String> filenamesList = this.getJpstaticResourceeditorManager().getCssList(path);
 		ArrayList<ResourceeditorFileWrapper> files = new ArrayList<ResourceeditorFileWrapper>();
 		for (int i = 0;i<filenamesList.size();i++) {
