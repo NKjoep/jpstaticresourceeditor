@@ -6,7 +6,7 @@
 			<longdesc key="jpstaticresourceeditor.shortCut.list.longDesc" />
 			<url>
 				<param name="namespace">/do/jpstaticresourceeditor/Resourceeditor</param>
-				<param name="actionName">entry</param>
+				<param name="actionName">list</param>
 			</url>
 		</shortcut>
 	</shortcuts>
