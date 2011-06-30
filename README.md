@@ -1,5 +1,5 @@
 Static Resources Editor Plugin
-=====================
+==============================
 
 This software is licensed under the terms of the
 GNU General Public License version 2 as published by the Free Software
@@ -14,7 +14,6 @@ Copyright 2005 AgileTec s.r.l. (http://www.agiletec.it) All rights reserved.
 
 
 
-------------------------
 DISCLAIMER - NO WARRANTY
 ------------------------
 This program is free software; you can redistribute it and/or
@@ -33,9 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 
 
-----------------------
 OVERVIEW
-----------------------
+--------
 This plugin allow to edit css and other static stuff of your jAPS Entando portal
 directly from the administration area.
 
@@ -44,9 +42,8 @@ applications.
 
 
 
-----------------------
 GETTING STARTED
-----------------------
+---------------
 
 In order to take maximum advantage from the present document, it is necessary
 to have basic knowledge about: the Java platform, the Eclipse IDE, the Apache
@@ -56,18 +53,16 @@ Of course you need to know how to install a jAPS Entando plugin in your portal/p
 
 
 
-----------------------
 CONTACT
-----------------------
+-------
 Feedbacks are welcome ;)
 Additional informations may be obtained through the official repo:
 http://github.com/NKjoep/jpstaticresourceeditor
 
 
 
-----------------------
 SCREENSHOTS
-----------------------
+-----------
 ![Screenshot 1](https://github.com/NKjoep/jpstaticresourceeditor/raw/master/shot001.png)
 
 ![Screenshot 2](https://github.com/NKjoep/jpstaticresourceeditor/raw/master/shot002.png)
