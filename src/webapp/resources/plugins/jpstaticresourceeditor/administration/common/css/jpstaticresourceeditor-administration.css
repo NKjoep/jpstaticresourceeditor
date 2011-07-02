@@ -1,5 +1,5 @@
 div.intro.jpstaticresourceeditor {
-	background-image: url("../img/icons/200x200/jpstaticresourceeditor.png");	
+	background-image: url("../img/icons/200x200/jpstaticresourceeditor.png");
 }
 
 
@@ -9,7 +9,17 @@ div.intro.jpstaticresourceeditor {
 	background-color: #fff;	
 }
 
-.jpstaticresourceeditor-administration .CodeMirror {
-	background-color: #fff;
-	height: 600px;
+/* advanced gui */
+.client-advanced .jpstaticresourceeditor-administration .cssContent {
+	width: 600px;
 }
+.client-advanced .jpstaticresourceeditor-administration .CodeMirror {
+	background-color: #fafafa;
+	height: 600px; 
+	width: 759px;
+	margin: 0;
+	padding: 0;
+}
+
+
+

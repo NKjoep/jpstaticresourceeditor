@@ -40,36 +40,40 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		return SUCCESS;
 	}
 	
-	public String save() throws IOException, ApsException {
+	public String save() {
 		String filePath = this.getRootFolder()+this.getFileToEdit();
 		String fileContent = this.getFileContent();
-		String RETURNACTION = null;
-		Boolean writesuccess = this.getJpstaticResourceeditorManager().writeCss(filePath, fileContent);
-		
-		if (writesuccess) {
-			RETURNACTION = SUCCESS;
+		try {
+			this.getJpstaticResourceeditorManager().writeCss(filePath, fileContent);
+			if (this.getKeepOpen()!=null) {
+				return INPUT;
+			}
+			else {
+				return SUCCESS;
+			}
 		}
-		else {
-			RETURNACTION = FAILURE;
-		}
-		
-		if (this.getKeepOpen()!=null) {
+		catch (ApsException e) {
+			String[] args = {this.getFileToEdit()};
+			this.addActionError(this.getText("error.css.writing", args));
 			return INPUT;
-		}
-		else {
-			return RETURNACTION;
 		}
 	}
 	
 	public String edit () {
 		String filePath = this.getRootFolder()+this.getFileToEdit();
 		//System.out.println(new Date().getTime() + " editing: "+filePath);
-		String cssContent = this.getJpstaticResourceeditorManager().readCss(filePath);
-		if (cssContent!=null && cssContent.trim().length()>0) {
-			this.setFileContent(cssContent);
-			return SUCCESS;
+		String cssContent;
+		try {
+			cssContent = this.getJpstaticResourceeditorManager().readCss(filePath);
+			if (cssContent!=null && cssContent.trim().length()>0) {
+				this.setFileContent(cssContent);
+				return SUCCESS;
+			}
+		} catch (ApsException e) {
+			//e.printStackTrace();
+			String[] args = {this.getFileToEdit()};
+			this.addActionError(this.getText("error.css.reading", args)); 
 		}
-		this.addActionError("Invalid css file.");
 		return FAILURE;
 	}
 	
