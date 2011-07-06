@@ -25,6 +25,7 @@
 			<fieldset>
 				<legend><em><s:property value="fileToEdit"  /></em></legend>
 				<p>	
+					<label for="cssContent"><s:text name="label.fileContent" /></label>
 					<wpsf:textarea id="cssContent" cssClass="cssContent" name="fileContent" cols="80" rows="20"  />
 				</p>
 			</fieldset>

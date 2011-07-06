@@ -7,6 +7,7 @@ import com.agiletec.aps.system.exception.ApsException;
 
 public interface IResourceeditorFileWrapper {
 
+
 	public String getAbsolutePath();	
 	
 	public String getName();
