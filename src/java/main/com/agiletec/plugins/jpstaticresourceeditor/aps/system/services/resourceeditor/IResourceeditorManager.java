@@ -1,9 +1,7 @@
 package com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.agiletec.aps.system.exception.ApsException;
 
@@ -14,7 +12,7 @@ public interface IResourceeditorManager {
 	public String readCss(String filePath) throws ApsException;
 	
 	public ArrayList<String> getCssList(String path);
-
-	public ArrayList<String> cssPluginsFiles();
+	
+	public Map<String, ArrayList<String>> getCssMap(String path);
 
 }

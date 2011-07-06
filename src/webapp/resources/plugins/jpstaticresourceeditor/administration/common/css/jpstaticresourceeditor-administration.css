@@ -1,8 +1,9 @@
+/* big icon in intro page*/
 div.intro.jpstaticresourceeditor {
 	background-image: url("../img/icons/200x200/jpstaticresourceeditor.png");
 }
 
-
+ /* css content textarea */
 .jpstaticresourceeditor-administration .cssContent {
 	width: 90%;
 	height: 600px; 
@@ -13,10 +14,11 @@ div.intro.jpstaticresourceeditor {
 .client-advanced .jpstaticresourceeditor-administration .cssContent {
 	width: 600px;
 }
+
 .client-advanced .jpstaticresourceeditor-administration .CodeMirror {
 	background-color: #fafafa;
 	height: 600px; 
-	width: 759px;
+	width: 755px;
 	margin: 0;
 	padding: 0;
 }

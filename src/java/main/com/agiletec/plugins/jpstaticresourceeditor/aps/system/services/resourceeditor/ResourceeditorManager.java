@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.agiletec.aps.system.common.AbstractService;
 import com.agiletec.aps.system.exception.ApsException;
@@ -81,37 +83,65 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 		return list;
 	}
 
-	public ArrayList<String> cssPluginsFiles() {
-		ArrayList files = new ArrayList<String>();
-		return files;
-	}
-
-
 	// Process all files and directories under dir
 	public ArrayList<String> searchCssInDirectory(String cssPath) {
 		File f = new File(cssPath);
-		ArrayList<String> list = new ArrayList<String>();
-		visitAllDirsAndFiles(f, list);
+		ArrayList<String> list = null;
+		if (f.exists() && f.canRead()) {
+			list = new ArrayList<String>();
+			visitAllDirsAndFiles(f, list);
+		}
 		return list;
 	}
 
-	protected void read(File file, ArrayList<String> list) {
-		if (!file.isDirectory()) {
-			if (file.getName().toLowerCase().endsWith(".css")) {
-				list.add(file.getAbsolutePath());
+	public Map<String, ArrayList<String>> getCssMap(String path) {
+		File f = new File(path);
+		Map<String, ArrayList<String>> map = null;
+		if (f.exists() && f.canRead()) {
+			map = new TreeMap<String, ArrayList<String>>();
+			visitAllDirsAndFiles(f, map);
+		}
+		return map;
+	}
+
+	protected void visitAllDirsAndFiles(File file, Map<String, ArrayList<String>> map) {
+		if (file.canRead()) {
+			if (file.isDirectory()) {
+				if (file.list().length>0) {
+					map.put(file.getAbsolutePath(), new ArrayList<String>());
+					String[] children = file.list();
+					for (int i=0; i<children.length; i++) {
+						visitAllDirsAndFiles(new File(file, children[i]), map);
+					}
+					if (map.get(file.getAbsolutePath()).size()==0) {
+						map.remove(file.getAbsolutePath());
+					}
+				}
+			}
+			else {
+				if (file.getName().toLowerCase().endsWith(".css")) {
+					ArrayList<String> list = map.get(file.getParent());
+					list.add(file.getAbsolutePath());
+					map.put(file.getParent(), list);
+				}
+			}
+		}
+	} 
+	
+	// Process all files and directories under dir
+	protected void visitAllDirsAndFiles(File file, ArrayList<String> list) {
+		if (file.canRead()) {
+			if (file.isDirectory()) {
+				String[] children = file.list();
+				for (int i=0; i<children.length; i++) {
+					visitAllDirsAndFiles(new File(file, children[i]), list);
+				}
+			}
+			else {
+				if (file.getName().toLowerCase().endsWith(".css")) {
+					list.add(file.getAbsolutePath());
+				}
 			}
 		}
 	}
-
-	// Process all files and directories under dir
-	protected void visitAllDirsAndFiles(File dir, ArrayList<String> list) {
-		this.read(dir, list);
-	    if (dir.isDirectory()) {
-	        String[] children = dir.list();
-	        for (int i=0; i<children.length; i++) {
-	            visitAllDirsAndFiles(new File(dir, children[i]), list);
-	        }
-	    }
-	}
-	
 }
