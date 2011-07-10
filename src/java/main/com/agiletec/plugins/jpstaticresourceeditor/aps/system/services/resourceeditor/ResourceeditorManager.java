@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -143,5 +146,58 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 				}
 			}
 		}
+	}
+
+	@Override
+	public Boolean delete(String fileToDelete) throws ApsException {
+		Boolean check = false;
+		File file = new File(fileToDelete);
+		if (file.exists() && !file.isDirectory() && file.canWrite()) {
+			file.renameTo(new File(file.getAbsoluteFile()+".deleted"));
+			check = true;
+		}
+		else {
+			throw new ApsException("jpstaticresourceeditor: cannot delete file"+fileToDelete);
+		}
+		return check;
+	}
+
+	@Override
+	public File create(String folder, String name) throws ApsException {
+		if (folder!=null && name!=null) {
+			if (!folder.endsWith("/") || !folder.endsWith("\\")) {
+				folder = folder+"/";
+			}
+			if (!name.endsWith(".css")) {
+				name = name+".css";
+			}
+			try {
+				File file = new File(folder+name);
+				Boolean creationIsOK = file.createNewFile();
+				if (creationIsOK) {
+					return file;
+				}
+				else {
+					throw new ApsException("jpstaticresourceeditor: cannot istatiate file: "+folder+name);
+				}			
+			}
+			catch (IOException e) {
+				throw new ApsException("jpstaticresourceeditor: cannot istatiate file: "+folder+name);
+			}
+		}
+		else {
+			throw new ApsException("jpstaticresourceeditor: cannot istatiate file: "+folder+name);
+		}
+	}
+
+	@Override
+	public List<String> getCssFoldersList(String root) {
+		if (root != null && root.trim().length()>0) {
+			List <String> folderList = new ArrayList<String>();
+			Collection<String> m = getCssMap(root).keySet();
+			folderList.addAll(m);
+			return folderList;
+		}
+		return null;
 	}
 }

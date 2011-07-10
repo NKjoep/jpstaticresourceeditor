@@ -23,17 +23,17 @@
 	<s:else>
 		<s:form action="save" method="post">
 			<fieldset>
-				<legend><em><s:property value="fileToEdit"  /></em></legend>
+				<legend><em><s:property value="file"  /></em></legend>
 				<p>	
 					<label for="cssContent"><s:text name="label.fileContent" /></label>
 					<wpsf:textarea id="cssContent" cssClass="cssContent" name="fileContent" cols="80" rows="20"  />
 				</p>
 			</fieldset>
-				<p class="centerText">
-					<wpsf:hidden name="fileToEdit" />
-					<s:submit cssClass="button" name="keepOpen" value="%{getText('label.save')}" />
-					<s:submit cssClass="button" value="%{getText('label.save.and.close')}" />
-				</p>
+			<p class="centerText">
+				<wpsf:hidden name="file" />
+				<s:submit cssClass="button" name="keepOpen" value="%{getText('label.save')}" />
+				<s:submit cssClass="button" value="%{getText('label.save.and.close')}" />
+			</p>
 		</s:form>
 	</s:else>
 </div>
