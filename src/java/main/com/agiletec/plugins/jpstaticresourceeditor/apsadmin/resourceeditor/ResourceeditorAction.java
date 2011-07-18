@@ -10,6 +10,7 @@ import com.agiletec.aps.system.SystemConstants;
 import com.agiletec.aps.system.exception.ApsException;
 import com.agiletec.aps.system.services.baseconfig.ConfigInterface;
 import com.agiletec.aps.util.ApsWebApplicationUtils;
+import com.agiletec.apsadmin.system.ApsAdminSystemConstants;
 import com.agiletec.apsadmin.system.BaseAction;
 import com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor.IResourceeditorManager;
 import com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor.ResourceeditorFileWrapper;
@@ -18,19 +19,13 @@ import com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourcee
 public class ResourceeditorAction extends BaseAction implements IResourceeditorAction {
 	
 	public String list () {
-		Boolean check = true;
-		if (check) {
-			return SUCCESS;
-		}
-		else {
-			return FAILURE;
-			
-		}
+		return SUCCESS;
 	}
 	
 	public String edit () {
 		String filePath = this.getRootFolder()+this.getFile();
 		//System.out.println(new Date().getTime() + " editing: "+filePath);
+		this.setStrutsAction(ApsAdminSystemConstants.EDIT);
 		String cssContent;
 		try {
 			cssContent = this.getJpstaticResourceeditorManager().readCss(filePath);
@@ -47,22 +42,31 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 	}	
 	
 	public String save() {
-		String filePath = this.getRootFolder()+this.getFile();
-		String fileContent = this.getFileContent();
-		try {
-			this.getJpstaticResourceeditorManager().writeCss(filePath, fileContent);
-			if (this.getKeepOpen()!=null) {
-				return INPUT;
-			}
-			else {
-				return SUCCESS;
+		int strutsAction = this.getStrutsAction();
+		if (strutsAction==1) {
+			return this.saveNew();
+		}
+		else {
+			if (strutsAction==2){
+				String filePath = this.getRootFolder()+this.getFile();
+				String fileContent = this.getFileContent();
+				try {
+					this.getJpstaticResourceeditorManager().writeCss(filePath, fileContent);
+					if (this.getKeepOpen()!=null) {
+						return INPUT;
+					}
+					else {
+						return SUCCESS;
+					}
+				}
+				catch (ApsException e) {
+					String[] args = {this.getFile()};
+					this.addActionError(this.getText("error.css.writing", args));
+					return INPUT;
+				}
 			}
 		}
-		catch (ApsException e) {
-			String[] args = {this.getFile()};
-			this.addActionError(this.getText("error.css.writing", args));
-			return INPUT;
-		}
+		return INPUT;
 	}
 	
 	public String delete() {
@@ -86,8 +90,12 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		}
 		
 	}
-	
 	public String createNew() {
+		this.setStrutsAction(ApsAdminSystemConstants.ADD);
+		return SUCCESS;
+	}
+	
+	public String saveNew() {
 		String folder = this.getFolder();
 		String name = this.getFile();
 		String content = this.getFileContent();
@@ -219,9 +227,18 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		return map;
 	}
 
+	public int getStrutsAction() {
+		return _strutsAction;
+	}
+	
+	public void setStrutsAction(int strutsAction) {
+		this._strutsAction = strutsAction;
+	}
+
 	private IResourceeditorManager _jpstaticresourceeditorResourceeditorManager;
 	private String _file;
 	private String _fileContent;
 	private String _keepOpen;
 	private String _folder;
+	private int _strutsAction;
 }
