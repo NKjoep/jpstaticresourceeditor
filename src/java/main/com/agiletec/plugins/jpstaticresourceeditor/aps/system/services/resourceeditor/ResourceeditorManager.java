@@ -82,7 +82,18 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 	}
 
 	public ArrayList<String> getCssList(String path) {
-		ArrayList<String> list = searchCssInDirectory(path);
+		ArrayList<String> list = null;
+		File f = new File(path);
+		if (f.exists() && f.canRead() && f.isDirectory() && f.list().length>0) {
+			list = new ArrayList<String>();
+			String[] children = f.list();
+			for (int i=0; i<children.length; i++) {
+				File currentFile = new File(children[i]);
+				if (currentFile.getName().toLowerCase().endsWith(".css")) {
+					list.add(currentFile.getAbsolutePath());
+				}
+			}
+		}
 		return list;
 	}
 

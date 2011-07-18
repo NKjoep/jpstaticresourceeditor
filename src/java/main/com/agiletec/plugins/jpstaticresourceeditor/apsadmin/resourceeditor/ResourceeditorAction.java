@@ -24,7 +24,6 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 	
 	public String edit () {
 		String filePath = this.getRootFolder()+this.getFile();
-		//System.out.println(new Date().getTime() + " editing: "+filePath);
 		this.setStrutsAction(ApsAdminSystemConstants.EDIT);
 		String cssContent;
 		try {
@@ -134,11 +133,28 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		}
 		ArrayList<String> filenamesList = this.getJpstaticResourceeditorManager().getCssList(path);
 		ArrayList<ResourceeditorFileWrapper> files = new ArrayList<ResourceeditorFileWrapper>();
+		System.out.println("calling getCssFiles for: "+path);
 		for (int i = 0;i<filenamesList.size();i++) {
 			String current = filenamesList.get(i);
+			System.out.println("adding files: "+current);
 			files.add(new ResourceeditorFileWrapper(new File(current), this.getRootFolder()));
 		}
 		return files;
+	}
+	
+	public Map<String, ArrayList<ResourceeditorFileWrapper>> getCssFilesMap(String path, Boolean includeSubFolder) {
+		if (!includeSubFolder) {
+			Map<String, ArrayList<ResourceeditorFileWrapper>> returnMap = new TreeMap<String, ArrayList<ResourceeditorFileWrapper>>();
+			TreeMap<String, ArrayList<ResourceeditorFileWrapper>> tmpMap = new TreeMap<String, ArrayList<ResourceeditorFileWrapper>>();
+			tmpMap = (TreeMap<String, ArrayList<ResourceeditorFileWrapper>>) this.getCssFilesMap(path);
+			String firstKey = tmpMap.firstKey();
+			ArrayList<ResourceeditorFileWrapper> firstValue = tmpMap.get(firstKey);
+			returnMap.put(firstKey, firstValue);
+			return returnMap;			
+		}
+		else {
+			return this.getCssFilesMap(path);
+		}
 	}
 	
 	public Map<String, ArrayList<ResourceeditorFileWrapper>> getCssFilesMap(String path) {

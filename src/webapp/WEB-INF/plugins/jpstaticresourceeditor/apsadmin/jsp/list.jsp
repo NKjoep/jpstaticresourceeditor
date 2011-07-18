@@ -63,16 +63,14 @@
 			<s:text name="info.resources.list" />
 		</p>
 		<s:iterator value="#cssFoldersMap" var="folder">
-			<s:set var="map" value='%{getCssFilesMap(#folder)}' />
-			<s:iterator value="#map" status="status">
-			<s:set var="cssList" value="value" />
+			<s:set var="list" value='%{getCssFiles(#folder)}' />
 			<table class="generic">
-				<caption><span><s:property value="key"/></span></caption>
+				<caption><span><s:property value="#folder"/></span></caption>
 				<tr>
 					<th><s:text name="label.file.name" /></th>
 					<th class="icon">&ndash;</th> 
 				</tr>
-				<s:iterator value="#cssList" var="file">
+				<s:iterator value="#list" var="file">
 					<s:url action="edit" var="editUrl"><s:param name="file" value="#file.path" /></s:url>
 					<s:url action="trash" var="trashUrl"><s:param name="file" value="#file.path" /></s:url>
 					<tr>
@@ -89,7 +87,6 @@
 					</tr>
 				</s:iterator>
 			</table>
-		</s:iterator>
 		</s:iterator>
 	</div>
 
