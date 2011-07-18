@@ -31,15 +31,15 @@
 				<fieldset>
 					<legend><s:text name="label.info" /></legend>
 					<p>
-						<label for="jpstaticresourceeditor_filefolder" class="basic-mint-label"><s:text name="label.folder" /></label>
+						<label for="jpstaticresourceeditor_filefolder" class="basic-mint-label"><s:text name="label.folder" />:</label>
 						<wpsf:select list="cssFoldersMap" name="folder" id="jpstaticresourceeditor_filefolder" cssClass="text" />
 					</p>
 					<p>
-						<label for="jpresourceeditor_filename" class="basic-mint-label"><s:text name="label.file.name" /></label>
+						<label for="jpresourceeditor_filename" class="basic-mint-label"><s:text name="label.file.name" />:</label>
 						<wpsf:textfield name="file" id="jpresourceeditor_filename" cssClass="text" />
 					</p>
 					<p>
-						<label for="cssContent" class="basic-mint-label"><s:text name="label.fileContent" /></label>
+						<label for="cssContent" class="basic-mint-label"><s:text name="label.fileContent" />:</label>
 						<wpsf:textarea id="cssContent" name="fileContent" cssClass="text" cols="80" rows="25" />
 					</p> 
 				</fieldset>
@@ -49,7 +49,7 @@
 					<legend><em><s:property value="file"  /></em></legend>
 					<p>	
 						<wpsf:hidden name="file" />
-						<label for="cssContent"><s:text name="label.fileContent" /></label>
+						<label for="cssContent"><s:text name="label.fileContent" />:</label>
 						<wpsf:textarea id="cssContent" cssClass="cssContent" name="fileContent" cols="80" rows="20"  />
 					</p>
 				</fieldset>

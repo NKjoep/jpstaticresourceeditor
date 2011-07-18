@@ -166,7 +166,7 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		}
 		return returnMap;
 	}
-
+	
 	public ArrayList<ResourceeditorFileWrapper> getCssFiles() {
 		return this.getCssFiles(null);
 	}
