@@ -133,10 +133,8 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		}
 		ArrayList<String> filenamesList = this.getJpstaticResourceeditorManager().getCssList(path);
 		ArrayList<ResourceeditorFileWrapper> files = new ArrayList<ResourceeditorFileWrapper>();
-		System.out.println("calling getCssFiles for: "+path);
 		for (int i = 0;i<filenamesList.size();i++) {
 			String current = filenamesList.get(i);
-			System.out.println("adding files: "+current);
 			files.add(new ResourceeditorFileWrapper(new File(current), this.getRootFolder()));
 		}
 		return files;
