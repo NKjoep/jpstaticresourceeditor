@@ -2,8 +2,6 @@ package com.agiletec.plugins.jpstaticresourceeditor.apsadmin.resourceeditor;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,11 +10,9 @@ import com.agiletec.aps.system.SystemConstants;
 import com.agiletec.aps.system.exception.ApsException;
 import com.agiletec.aps.system.services.baseconfig.ConfigInterface;
 import com.agiletec.aps.util.ApsWebApplicationUtils;
-import com.agiletec.aps.util.SelectItem;
 import com.agiletec.apsadmin.system.BaseAction;
 import com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor.IResourceeditorManager;
 import com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor.ResourceeditorFileWrapper;
-import com.sun.xml.internal.bind.v2.runtime.reflect.ListIterator;
 
 
 public class ResourceeditorAction extends BaseAction implements IResourceeditorAction {
@@ -105,7 +101,8 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 				return SUCCESS;
 			}
 			catch (ApsException e) {
-				this.addActionError(this.getText("error.css.creatingNew"));
+				String[] args = {folder, name};
+				this.addActionError(this.getText("error.css.creatingNew",args));
 				return INPUT;
 			}
 		}

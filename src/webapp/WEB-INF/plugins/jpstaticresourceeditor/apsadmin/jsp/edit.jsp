@@ -32,7 +32,7 @@
 			<p class="centerText">
 				<wpsf:hidden name="file" />
 				<s:submit cssClass="button" name="keepOpen" value="%{getText('label.save')}" />
-				<s:submit cssClass="button" value="%{getText('label.save.and.close')}" />
+				<s:submit cssClass="button" name="saveAndClose" value="%{getText('label.save.and.close')}" />
 			</p>
 		</s:form>
 	</s:else>
