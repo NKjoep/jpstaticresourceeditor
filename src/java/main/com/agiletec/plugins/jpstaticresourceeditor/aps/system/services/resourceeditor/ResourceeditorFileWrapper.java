@@ -1,11 +1,20 @@
 package com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class ResourceeditorFileWrapper  implements IResourceeditorFileWrapper {
+import com.sun.tools.hat.internal.util.ArraySorter;
+
+public class ResourceeditorFileWrapper  implements IResourceeditorFileWrapper, Comparable<ResourceeditorFileWrapper> {
 	
 	public ResourceeditorFileWrapper (File f, String context) {
 		this.setFile(f);
+		this.setContextPath(context);
+	}
+
+	public ResourceeditorFileWrapper(String f, String context) {
+		this.setFile(new File(f));
 		this.setContextPath(context);
 	}
 
@@ -41,4 +50,17 @@ public class ResourceeditorFileWrapper  implements IResourceeditorFileWrapper {
 	
 	private File _file;
 	private String _contextPath;
+	@Override
+	
+	public int compareTo(ResourceeditorFileWrapper o) {
+		if (o.getAbsolutePath().equals(this.getAbsolutePath())) return 0;
+		
+		String[] s = {o.getAbsolutePath(), this.getAbsolutePath()};
+		Arrays.sort(s);
+		
+		if (s[0].equals(o.getAbsolutePath())) { 
+			return -1;
+		}
+		return 1;
+	}
 }

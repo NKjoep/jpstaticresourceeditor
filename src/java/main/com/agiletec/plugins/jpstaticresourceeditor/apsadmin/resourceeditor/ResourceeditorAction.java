@@ -2,9 +2,16 @@ package com.agiletec.plugins.jpstaticresourceeditor.apsadmin.resourceeditor;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+
+import org.apache.commons.collections.OrderedMap;
+import org.apache.commons.collections.map.ListOrderedMap;
 
 import com.agiletec.aps.system.SystemConstants;
 import com.agiletec.aps.system.exception.ApsException;
@@ -14,11 +21,63 @@ import com.agiletec.apsadmin.system.ApsAdminSystemConstants;
 import com.agiletec.apsadmin.system.BaseAction;
 import com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor.IResourceeditorManager;
 import com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor.ResourceeditorFileWrapper;
+import com.sun.tools.javac.code.Attribute.Array;
 
 
 public class ResourceeditorAction extends BaseAction implements IResourceeditorAction {
 	
 	public String list () {
+		TreeMap<String, ArrayList<String>> fold = new TreeMap<String, ArrayList<String>>();
+		String root = this.getFilterFolder();
+		boolean listPlugins = false;
+		if (root==null||root.trim().length()==0) {
+			root = this.getRootFolder()+"static/css";
+			listPlugins=true;
+		}
+		else {
+			root = this.getRootFolder()+root.trim().replaceAll("\\.\\./","");
+		}
+		
+		String name = this.getFilterFilename();
+		if (name!=null) {
+			name = name.replaceAll("\\.\\./","");
+		}
+
+		Boolean searchSubfolders = this.getFilterSubfolderType()!=null&&!(this.getFilterSubfolderType().trim().equalsIgnoreCase("none")) ? false : true;
+		try {
+			fold = this.getJpstaticResourceeditorManager().getCssMap(root,name,searchSubfolders);
+		} catch (ApsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			this.addActionError(this.getText("message.error.reading.path"));
+		}
+		//this.setCssList(fold);
+		
+		if (listPlugins) {
+			try {
+				TreeMap<String, ArrayList<String>> pluginsList = this.getJpstaticResourceeditorManager().getCssMap(this.getRootFolder()+"plugins/", name, true);
+				fold.putAll(pluginsList);
+			} catch (ApsException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
+		}
+		
+		//TODO: move this step in an action helper
+		String pathctx = this.getRootFolder();
+		TreeMap<ResourceeditorFileWrapper, ArrayList<ResourceeditorFileWrapper>> tmp = new TreeMap<ResourceeditorFileWrapper, ArrayList<ResourceeditorFileWrapper>>();
+		Iterator<String> cssKeys = fold.navigableKeySet().iterator();
+		while (cssKeys.hasNext()) {
+			String key = cssKeys.next();
+			ResourceeditorFileWrapper keyWrapper = new ResourceeditorFileWrapper(key, this.getRootFolder());
+			ArrayList<String> css = (ArrayList<String>) fold.get(key);
+			ArrayList<ResourceeditorFileWrapper> cssWrapper = new ArrayList<ResourceeditorFileWrapper>();
+			for (int i = 0;i<css.size();i++) {
+				cssWrapper.add(new ResourceeditorFileWrapper(css.get(i), pathctx));
+			}
+			tmp.put(keyWrapper, cssWrapper);
+		}
+		this.setCssList(tmp);
 		return SUCCESS;
 	}
 	
@@ -123,68 +182,7 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		folderPath = parResourcesDiskRootFolder;
 		return folderPath;
 	}
-	
-	public ArrayList<ResourceeditorFileWrapper> getCssFiles(String path) {
-		if (path==null || path.trim().length()==0) {
-			path = this.getRootFolder()+"static/css";
-		}
-		else {
-			path = this.getRootFolder()+path.replaceAll("\\.\\./", "");
-		}
-		ArrayList<String> filenamesList = this.getJpstaticResourceeditorManager().getCssList(path);
-		ArrayList<ResourceeditorFileWrapper> files = new ArrayList<ResourceeditorFileWrapper>();
-		for (int i = 0;i<filenamesList.size();i++) {
-			String current = filenamesList.get(i);
-			files.add(new ResourceeditorFileWrapper(new File(current), this.getRootFolder()));
-		}
-		return files;
-	}
-	
-	public Map<String, ArrayList<ResourceeditorFileWrapper>> getCssFilesMap(String path, Boolean includeSubFolder) {
-		if (!includeSubFolder) {
-			Map<String, ArrayList<ResourceeditorFileWrapper>> returnMap = new TreeMap<String, ArrayList<ResourceeditorFileWrapper>>();
-			TreeMap<String, ArrayList<ResourceeditorFileWrapper>> tmpMap = new TreeMap<String, ArrayList<ResourceeditorFileWrapper>>();
-			tmpMap = (TreeMap<String, ArrayList<ResourceeditorFileWrapper>>) this.getCssFilesMap(path);
-			String firstKey = tmpMap.firstKey();
-			ArrayList<ResourceeditorFileWrapper> firstValue = tmpMap.get(firstKey);
-			returnMap.put(firstKey, firstValue);
-			return returnMap;			
-		}
-		else {
-			return this.getCssFilesMap(path);
-		}
-	}
-	
-	public Map<String, ArrayList<ResourceeditorFileWrapper>> getCssFilesMap(String path) {
-		Map<String, ArrayList<ResourceeditorFileWrapper>> returnMap = new TreeMap<String, ArrayList<ResourceeditorFileWrapper>>();
-		if (path==null || path.trim().length()==0) {
-			path = this.getRootFolder()+"static/css";
-		}
-		else {
-			path = this.getRootFolder()+path.replaceAll("\\.\\./", "");
-		}
-		Map<String, ArrayList<String>> tmpMap = this.getJpstaticResourceeditorManager().getCssMap(path);
-		if (tmpMap.size()>0) {
-			String context = this.getRootFolder();
-			while(!(tmpMap.size()==0)) {
-				String nextKey = tmpMap.keySet().iterator().next();
-				ArrayList<String> nextList = tmpMap.get(nextKey);
-				ArrayList<ResourceeditorFileWrapper> returnList = new ArrayList<ResourceeditorFileWrapper>();
-				for (int i = 0;i<nextList.size();i++) {
-					File f = new File(nextList.get(i));
-					returnList.add(new ResourceeditorFileWrapper(f, context));
-				}
-				returnMap.put(new ResourceeditorFileWrapper(new File(nextKey), context).getPath(), returnList);
-				tmpMap.remove(nextKey);
-			}
-		}
-		return returnMap;
-	}
-	
-	public ArrayList<ResourceeditorFileWrapper> getCssFiles() {
-		return this.getCssFiles(null);
-	}
-	
+
 	public IResourceeditorManager getJpstaticResourceeditorManager() {
 		return _jpstaticresourceeditorResourceeditorManager;
 	}
@@ -220,7 +218,7 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 	public String getFolder() {
 		return _folder;
 	}
-	
+
 	public void setFolder(String folder) {
 		this._folder = folder;
 	}
@@ -228,19 +226,27 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 	public List<String> getCssFoldersMap() {
 		String rootFolder = this.getRootFolder();
 		List<String> map = new ArrayList<String>();
-		List<String> staticList = this.getJpstaticResourceeditorManager().getCssFoldersList(rootFolder+"static/css");
-		List<String> pluginlist = this.getJpstaticResourceeditorManager().getCssFoldersList(rootFolder+"plugins");
-		for (int i = 0; i<staticList.size(); i++) {
-			String current = staticList.get(i).replaceFirst(rootFolder, "");
-			map.add(current);
-		}
-		for (int i = 0; i<pluginlist.size(); i++) {
-			String current = pluginlist.get(i).replaceFirst(rootFolder, "");
-			map.add(current);
-		}
+		List<String> staticList =  new ArrayList<String>();
+		List<String> pluginlist = new ArrayList<String>();
+		try {
+			staticList = this.getJpstaticResourceeditorManager().getCssFoldersList(rootFolder+"static/css");
+			pluginlist = this.getJpstaticResourceeditorManager().getCssFoldersList(rootFolder+"plugins");
+			for (int i = 0; i<staticList.size(); i++) {
+				String current = staticList.get(i).replaceFirst(rootFolder, "");
+				map.add(current);
+			}
+			for (int i = 0; i<pluginlist.size(); i++) {
+				String current = pluginlist.get(i).replaceFirst(rootFolder, "");
+				map.add(current);
+			}
+		} catch (ApsException e) { System.out.println("jpstaticresourceeditor: "+ e ); }
 		return map;
 	}
 
+	public String getFileSeparator() {
+		return System.getProperty("file.separator");
+	} 
+	
 	public int getStrutsAction() {
 		return _strutsAction;
 	}
@@ -249,10 +255,46 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		this._strutsAction = strutsAction;
 	}
 
+	public String getFilterFilename() {
+		return _filterFilename;
+	}
+
+	public void setFilterFilename(String filterFilename) {
+		this._filterFilename = filterFilename;
+	}
+
+	public String getFilterFolder() {
+		return _filterFolder;
+	}
+
+	public void setFilterFolder(String filterFolder) {
+		this._filterFolder = filterFolder;
+	}
+
+	public String getFilterSubfolderType() {
+		return _filterSubfolderType;
+	}
+
+	public void setFilterSubfolderType(String filterSubfolderType) {
+		this._filterSubfolderType = filterSubfolderType;
+	}
+
+	public TreeMap<ResourceeditorFileWrapper, ArrayList<ResourceeditorFileWrapper>> getCssList() {
+		return this._cssList;
+	}
+	
+	private void setCssList(TreeMap<ResourceeditorFileWrapper, ArrayList<ResourceeditorFileWrapper>> list) {
+		this._cssList = list;
+	}
+	
 	private IResourceeditorManager _jpstaticresourceeditorResourceeditorManager;
 	private String _file;
 	private String _fileContent;
 	private String _keepOpen;
 	private String _folder;
+	private String _filterFilename;
+	private String _filterFolder;
+	private String _filterSubfolderType;
 	private int _strutsAction;
+	private TreeMap<ResourceeditorFileWrapper, ArrayList<ResourceeditorFileWrapper>> _cssList;
 }

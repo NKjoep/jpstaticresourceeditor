@@ -15,5 +15,7 @@ public interface IResourceeditorFileWrapper {
 	public File getFile();
 
 	public String getPath();
+
+	int compareTo(ResourceeditorFileWrapper o);
 	
 }
