@@ -42,16 +42,17 @@ public class ResourceeditorFileWrapper  implements IResourceeditorFileWrapper, C
 	public File getFile() {
 		return this._file;
 	}
+	
+	public long getSize () {
+		return this.getFile().length();
+	}
 
 	@Override
 	public String getPath() {
 		return this._file.getAbsolutePath().replaceFirst(this._contextPath, "");
 	}
 	
-	private File _file;
-	private String _contextPath;
 	@Override
-	
 	public int compareTo(ResourceeditorFileWrapper o) {
 		if (o.getAbsolutePath().equals(this.getAbsolutePath())) return 0;
 		
@@ -63,4 +64,7 @@ public class ResourceeditorFileWrapper  implements IResourceeditorFileWrapper, C
 		}
 		return 1;
 	}
+
+	private File _file;
+	private String _contextPath;
 }

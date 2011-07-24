@@ -80,6 +80,11 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		this.setCssList(tmp);
 		return SUCCESS;
 	}
+	//TODO: move this into an helper 
+	public ResourceeditorFileWrapper getResource(String filePath) {
+		filePath = this.getRootFolder()+filePath.replaceAll("\\.\\./","");
+		return new ResourceeditorFileWrapper(new File(filePath), this.getRootFolder());
+	}
 	
 	public String edit () {
 		String filePath = this.getRootFolder()+this.getFile();

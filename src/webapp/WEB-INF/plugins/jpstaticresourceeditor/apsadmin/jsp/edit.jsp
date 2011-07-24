@@ -1,5 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="wpsa" uri="apsadmin-core.tld" %>
+<%@ taglib prefix="wp" uri="/aps-core" %>
 <%@ taglib prefix="wpsf" uri="apsadmin-form.tld" %>
 <s:set var="targetNS" value="%{'/do/jpstaticresourceeditor/Resourceeditor'}" />
 <h1><s:text name="jpstaticresourceeditor.name" />
@@ -45,8 +46,37 @@
 				</fieldset>
 			</s:if>
 			<s:elseif test="strutsAction==2">
+				<s:set var="fileResource" value="%{getResource(file)}" />
+				<dl class="table-display">
+					<dt><s:text name="label.file.name" /></dt>
+						<dd><s:property value="#fileResource.name" /></dd>
+					<dt><s:text name="label.folder" /></dt>
+						<dd>
+							<s:property value="#fileResource.path" />
+						</dd>
+					<dt><s:text name="label.size" /></dt>
+						<dd><span class="monospace">
+							<s:set var="size" value="%{#fileResource.size}" />
+							<s:if test="#size<1024"><s:property value="#size"/>&#32;bytes</s:if>
+							<s:else><s:property value="#size/1024"/>&#32;kb</s:else>
+							</span>
+						</dd>
+					<dt><s:text name="label.url" /></dt>
+						<dd> 
+							<a class="toggle-ellipsis" href="<wp:resourceURL /><s:property value="#fileResource.path" />" title="<s:text name="view.online.version" />&#32;<s:property value="#file.path" />">
+								<s:set var="text"><wp:resourceURL /><s:property value="#fileResource.path" /></s:set>
+								<s:if test="#text.length()>40">
+									...<s:property value="#text.substring(#text.length()-40,#text.length())" />
+								</s:if>
+								<s:else>
+									<s:property value="#text" />
+								</s:else>
+							</a>						
+						</dd>
+				</dl>
+			
 				<fieldset>
-					<legend><em><s:property value="file"  /></em></legend>
+					<legend><em><s:text name="label.info"/></em></legend>
 					<p>	
 						<wpsf:hidden name="file" />
 						<label for="cssContent"><s:text name="label.fileContent" />:</label>
