@@ -1,6 +1,0 @@
-Quick Instruction:
-
-- copy all the content from src/webapp in your webcontent
-- copy the content from src/java/main in your src directory
-- edit your struts.xml and include the line from /src/java/main/jpstaticresourceeditor-struts-plugin.xml
-- run. (to the hills ;)
