@@ -34,7 +34,7 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 		// TODO Auto-generated method stub
 	}
 
-	public Boolean writeCss (String filePath, String fileContent) throws ApsException {	
+	public Boolean writeCss (String filePath, String fileContent) throws ApsException {
 		if (filePath.trim().length()>0 && fileContent.trim().length()>0) {
 			File file = new File(filePath);
 			if (file!=null && file.isFile() && file.canWrite()) {
@@ -103,7 +103,7 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 				String currentName = currentFile.getName().toLowerCase();
 				boolean nameCheck = namePattern!=null?false:true;
 				if (namePattern!=null&&namePattern.length()>0) {
-					if (currentName.contains(namePattern.toLowerCase())) { 
+					if (currentName.contains(namePattern.toLowerCase())) {
 						nameCheck = true;
 					}
 				}
@@ -136,19 +136,19 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 					if (filenamePattern==null||filenamePattern.length()==0) {
 						ArrayList<String> list = map.get(file.getParent());
 						list.add(file.getAbsolutePath());
-						map.put(file.getParent(), list);						
+						map.put(file.getParent(), list);
 					}
 					else {
 						if (file.getName().toLowerCase().contains(filenamePattern.toLowerCase())) {
 							ArrayList<String> list = map.get(file.getParent());
 							list.add(file.getAbsolutePath());
-							map.put(file.getParent(), list);						
+							map.put(file.getParent(), list);
 						}
 					}
 				}
 			}
 		}
-	} 
+	}
 
 	@Override
 	public Boolean delete(String fileToDelete) throws ApsException {
@@ -181,7 +181,7 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 				}
 				else {
 					throw new ApsException("jpstaticresourceeditor: cannot istatiate file: "+folder+name);
-				}			
+				}
 			}
 			catch (IOException e) {
 				throw new ApsException("jpstaticresourceeditor: cannot istatiate file: "+folder+name);
@@ -202,10 +202,10 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 		}
 		return null;
 	}
-	
+
 	public TreeMap<String, ArrayList<String>> getCssMap(String searchFolder, String searchName, Boolean browseSubfolders) throws ApsException {
 		File rootFolder = new File(searchFolder);
-		if (!(rootFolder.isDirectory()||rootFolder.canWrite())) throw new ApsException("jpstaticresourceeditor: cannot read folder"+searchFolder);
+		if (!(rootFolder.isDirectory()||rootFolder.canWrite())) throw new ApsException("jpstaticresourceeditor: cannot read folder "+searchFolder);
 		TreeMap<String, ArrayList<String>> m = new TreeMap<String, ArrayList<String>>();
 		visitAllDirsAndFiles(rootFolder, m, searchName);
 		return m;

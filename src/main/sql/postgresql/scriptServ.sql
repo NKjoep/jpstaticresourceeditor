@@ -1,0 +1,1 @@
+INSERT INTO authpermissions (permissionname, descr) VALUES ('jpstaticresourceeditor', 'Backend CSS Editing');

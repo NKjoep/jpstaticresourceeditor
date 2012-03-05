@@ -9,18 +9,18 @@
 
 		<action name="intro" class="jpstaticresourceeditorResourceeditorAction">
 			<result type="tiles">admin.jpstaticresourceeditor.resourceeditor.intro</result>
-			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">superuser</param></interceptor-ref>
-		</action>	
+			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">jpstaticresourceeditor</param></interceptor-ref>
+		</action>
 
 		<action name="list" class="jpstaticresourceeditorResourceeditorAction" method="list">
 			<result type="tiles">admin.jpstaticresourceeditor.resourceeditor.list</result>
-			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">superuser</param></interceptor-ref>
+			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">jpstaticresourceeditor</param></interceptor-ref>
 		</action>
 
 		<action name="edit" class="jpstaticresourceeditorResourceeditorAction" method="edit">
 			<result type="tiles">admin.jpstaticresourceeditor.resourceeditor.edit</result>
 			<result name="failure" type="tiles">admin.jpstaticresourceeditor.resourceeditor.edit</result>
-			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">superuser</param></interceptor-ref>
+			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">jpstaticresourceeditor</param></interceptor-ref>
 		</action>
 
 		<action name="save" class="jpstaticresourceeditorResourceeditorAction" method="save">
@@ -28,12 +28,12 @@
 			 <result type="redirect-action">
 				<param name="actionName">list</param>
 			 </result>
-			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">superuser</param></interceptor-ref>
+			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">jpstaticresourceeditor</param></interceptor-ref>
 		</action>
 
 		<action name="trash" class="jpstaticresourceeditorResourceeditorAction">
 			 <result type="tiles">admin.jpstaticresourceeditor.resourceeditor.trash</result>
-			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">superuser</param></interceptor-ref>
+			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">jpstaticresourceeditor</param></interceptor-ref>
 		</action>
 
 		<action name="delete" class="jpstaticresourceeditorResourceeditorAction" method="delete">
@@ -41,12 +41,12 @@
 			 <result type="redirect-action">
 			 	<param name="actionName">list</param>
 			 </result>
-			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">superuser</param></interceptor-ref>
+			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">jpstaticresourceeditor</param></interceptor-ref>
 		</action>
 
 		<action name="new" class="jpstaticresourceeditorResourceeditorAction" method="createNew">
 			<result type="tiles">admin.jpstaticresourceeditor.resourceeditor.edit</result>
-			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">superuser</param></interceptor-ref>
+			<interceptor-ref name="japsDefaultStack"><param name="requestAuth.requiredPermission">jpstaticresourceeditor</param></interceptor-ref>
 		</action>
 
 	</package>

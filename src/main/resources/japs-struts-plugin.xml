@@ -6,10 +6,6 @@
 <struts>
 	
 	<!-- ### entando-plugin-jpstaticresourceeditor ### -->
-	
-	<!-- EXAMPLE -->
-	<!-- 
-	<include file="stealthefish/plugins/aps/system/jpchangeme.xml"/>
-	 -->
-   
+	<include file="stealthefish/plugins/jpstaticresourceeditor/apsadmin/resourceeditor/resourceeditorAction.xml"/>
+
 </struts>
