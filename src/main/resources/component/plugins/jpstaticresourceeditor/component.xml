@@ -2,12 +2,12 @@
 <component>
 	<code>jpstaticresourceeditor</code>
 	<description>Css Editor</description>
-	<dependencies>
 		<!--
+	<dependencies>
 		<code>firstDependency</code>
 		<code>secondDependency</code>
-		-->
 	</dependencies>
+		-->
 	<installation>
 		<tableMapping>
 			<datasource name="portDataSource">

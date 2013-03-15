@@ -185,6 +185,9 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 		ConfigInterface configService = (ConfigInterface) ApsWebApplicationUtils.getBean(SystemConstants.BASE_CONFIG_MANAGER, this.getRequest());
 		String parResourcesDiskRootFolder = configService.getParam(SystemConstants.PAR_RESOURCES_DISK_ROOT);
 		folderPath = parResourcesDiskRootFolder;
+		if (!folderPath.endsWith("/") || !folderPath.endsWith("\\")) {
+			folderPath = folderPath + "/";
+		}
 		return folderPath;
 	}
 
@@ -245,6 +248,9 @@ public class ResourceeditorAction extends BaseAction implements IResourceeditorA
 				map.add(current);
 			}
 		} catch (ApsException e) { System.out.println("jpstaticresourceeditor: "+ e ); }
+		if (map.size()==0) {
+			map.add("static/css");
+		}
 		return map;
 	}
 

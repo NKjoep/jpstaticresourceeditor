@@ -204,6 +204,9 @@ public class ResourceeditorManager extends AbstractService implements IResourcee
 	}
 	
 	public TreeMap<String, ArrayList<String>> getCssMap(String searchFolder, String searchName, Boolean browseSubfolders) throws ApsException {
+		if (!searchFolder.endsWith("/")) {
+			searchFolder = searchFolder + "/";
+		}
 		File rootFolder = new File(searchFolder);
 		if (!(rootFolder.isDirectory()||rootFolder.canWrite())) throw new ApsException("jpstaticresourceeditor: cannot read folder"+searchFolder);
 		TreeMap<String, ArrayList<String>> m = new TreeMap<String, ArrayList<String>>();

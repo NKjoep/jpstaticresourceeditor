@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%@ taglib prefix="wpsa" uri="apsadmin-core.tld" %>
+<%@ taglib prefix="wpsa" uri="/apsadmin-core" %>
 <%@ taglib prefix="wp" uri="/aps-core" %>
-<%@ taglib prefix="wpsf" uri="apsadmin-form.tld" %>
+<%@ taglib prefix="wpsf" uri="/apsadmin-form" %>
 <s:set var="targetNS" value="%{'/do/jpstaticresourceeditor/Resourceeditor'}" />
 <h1><s:text name="jpstaticresourceeditor.name" />
 <s:include value="/WEB-INF/apsadmin/jsp/common/inc/operations-context-general.jsp" />
