@@ -1,4 +1,2 @@
-.DS_Store
-.svn
-*.ignore
-*.git-ignore.*
+target
+*.log

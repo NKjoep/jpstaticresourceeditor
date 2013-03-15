@@ -12,7 +12,7 @@
 	</bean>
 
 	<bean id="jpstaticresourceeditorResourceeditorAction" scope="prototype" 
-			class="stealthefish.plugins.jpstaticresourceeditor.apsadmin.resourceeditor.ResourceeditorAction" parent="abstractBaseAction">
+			class="com.agiletec.plugins.jpstaticresourceeditor.apsadmin.resourceeditor.ResourceeditorAction" parent="abstractBaseAction">
 		<property name="jpstaticresourceeditorResourceeditorManager" ref="jpstaticresourceeditorResourceeditorManager" />
 	</bean>
 	

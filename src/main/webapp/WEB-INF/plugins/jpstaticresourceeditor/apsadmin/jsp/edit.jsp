@@ -1,8 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="wpsa" uri="apsadmin-core.tld" %>
 <%@ taglib prefix="wp" uri="/aps-core" %>
-<%@ taglib prefix="wpsa"uri="/apsadmin-core" %>
-<%@ taglib prefix="wpsf"uri="/apsadmin-form" %>
-
+<%@ taglib prefix="wpsf" uri="apsadmin-form.tld" %>
 <s:set var="targetNS" value="%{'/do/jpstaticresourceeditor/Resourceeditor'}" />
 <h1><s:text name="jpstaticresourceeditor.name" />
 <s:include value="/WEB-INF/apsadmin/jsp/common/inc/operations-context-general.jsp" />
@@ -16,10 +15,10 @@
 			<s:text name="title.jpstaticresourceeditor.edit" />
 		</s:elseif>
 	</h2>
-
+	
 	<s:if test="hasActionErrors()">
 		<div class="message message_error">
-		<h3><s:text name="message.title.ActionErrors" /></h3>
+		<h3><s:text name="message.title.ActionErrors" /></h3>	
 			<ul>
 			<s:iterator value="actionErrors">
 				<li><s:property escape="false" /></li>
@@ -34,16 +33,16 @@
 					<legend><s:text name="label.info" /></legend>
 					<p>
 						<label for="jpstaticresourceeditor_filefolder" class="basic-mint-label"><s:text name="label.folder" />:</label>
-						<wpsf:select useTabindexAutoIncrement="true" list="cssFoldersMap" name="folder" id="jpstaticresourceeditor_filefolder" cssClass="text" />
+						<wpsf:select list="cssFoldersMap" name="folder" id="jpstaticresourceeditor_filefolder" cssClass="text" />
 					</p>
 					<p>
 						<label for="jpresourceeditor_filename" class="basic-mint-label"><s:text name="label.file.name" />:</label>
-						<wpsf:textfield useTabindexAutoIncrement="true" name="file" id="jpresourceeditor_filename" cssClass="text" />
+						<wpsf:textfield name="file" id="jpresourceeditor_filename" cssClass="text" />
 					</p>
 					<p>
 						<label for="cssContent" class="basic-mint-label"><s:text name="label.fileContent" />:</label>
-						<wpsf:textarea useTabindexAutoIncrement="true" id="cssContent" name="fileContent" cssClass="text" cols="80" rows="25" />
-					</p>
+						<wpsf:textarea id="cssContent" name="fileContent" cssClass="text" cols="80" rows="25" />
+					</p> 
 				</fieldset>
 			</s:if>
 			<s:elseif test="strutsAction==2">
@@ -63,7 +62,7 @@
 							</span>
 						</dd>
 					<dt><s:text name="label.url" /></dt>
-						<dd>
+						<dd> 
 							<a class="toggle-ellipsis" href="<wp:resourceURL /><s:property value="#fileResource.path" />" title="<s:text name="view.online.version" />&#32;<s:property value="#file.path" />">
 								<s:set var="text"><wp:resourceURL /><s:property value="#fileResource.path" /></s:set>
 								<s:if test="#text.length()>40">
@@ -72,16 +71,16 @@
 								<s:else>
 									<s:property value="#text" />
 								</s:else>
-							</a>
+							</a>						
 						</dd>
 				</dl>
-
+			
 				<fieldset>
 					<legend><em><s:text name="label.info"/></em></legend>
-					<p>
+					<p>	
 						<wpsf:hidden name="file" />
 						<label for="cssContent"><s:text name="label.fileContent" />:</label>
-						<wpsf:textarea useTabindexAutoIncrement="true" id="cssContent" cssClass="cssContent" name="fileContent" cols="80" rows="20"  />
+						<wpsf:textarea id="cssContent" cssClass="cssContent" name="fileContent" cols="80" rows="20"  />
 					</p>
 				</fieldset>
 			</s:elseif>

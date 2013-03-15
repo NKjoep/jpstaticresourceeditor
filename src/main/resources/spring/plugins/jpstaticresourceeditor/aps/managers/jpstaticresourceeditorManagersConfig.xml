@@ -8,8 +8,20 @@
 			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
 	
 	<bean id="jpstaticresourceeditorResourceeditorManager" 
-			class="stealthefish.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor.ResourceeditorManager" 
+			class="com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor.ResourceeditorManager" 
 			parent="abstractService" >
 	</bean>
+
+	<!--  
+		<property name="resourceeditorDAO">
+			<bean class="com.agiletec.plugins.jpstaticresourceeditor.aps.system.services.resourceeditor.ResourceeditorDAO">
+				<property name="dataSource" ref="servDataSource" />
+			</bean>
+		</property>
+	<bean id="jpstaticresourceeditorAttributeRolesLoader" class="com.agiletec.aps.system.common.entity.ExtraAttributeRoles">
+		<property name="entityManagerDest" ref="jpstaticresourceeditorResourceeditorManager" />
+		<property name="defsFilePath"><value>/WEB-INF/plugins/jpstaticresourceeditor/jpstaticresourceeditorAttributeRoles.xml</value></property>
+	</bean>
+	-->
 	
 </beans>

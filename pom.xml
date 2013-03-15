@@ -3,27 +3,23 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
         <artifactId>entando-plugins-parent</artifactId>
-        <groupId>org.entando.entando.plugins</groupId>
-        <version>2.4.0.2-SNAPSHOT</version>
+		<groupId>org.entando.entando.plugins</groupId>
+		<version>3.2.0-SNAPSHOT</version>
     </parent>
 	<artifactId>entando-plugin-jpstaticresourceeditor</artifactId>
-	<groupId>org.entando.entando.plugins</groupId>
-	<version>1.0-SNAPSHOT</version>
+	<groupId>com.stealthefish</groupId>
 	<packaging>war</packaging>
-	<name>Entando Plugin: Static Resource Editor</name>
-	<description>An experimental plugin for editing css and other static stuff of your Entando portal</description>
+	<name>Entando Plugin: Css Editor</name>
+	<description>With this plugin you can edit the css files of your portal.</description>
 	<developers>
 		<developer>
-			<id>a.dessi</id>
-			<name>Andrea Dessì</name>
-			<email>a.dessi@agiletec.it</email>
+			<id>NKjoep</id>
+			<name>Andrea D.</name>
+			<email>nkjoep@gmail.com</email>
 		</developer>
 	</developers>
-	<url>http://www.entando.com/</url>
-	<properties>
-		<project.parent.build.directory>../../target</project.parent.build.directory>
-		<project.parent.basedir>../..</project.parent.basedir>
-	</properties>
+	<url>http://www.stealthefish.com/</url>
+
 	<build>
 		<plugins>
 			<plugin>
